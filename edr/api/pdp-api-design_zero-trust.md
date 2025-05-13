@@ -78,9 +78,11 @@ Content-Type: application/json
 | 요소        | 설명                                                |
 | --------- | ------------------------------------------------- |
 | 통신 방식     | Agent → PDP로 상태 전송, MTLS + HMAC 기반                |
-| 권한 분리     | PLURA는 상태만 제공, 판단은 PDP가 전담                        |
+| 권한 분리     | PLURA-EDR은 상태만 제공, 판단은 PDP가 전담                        |
 | 서버 통신 최적화 | PLURA Agent ↔ PDP만 API 통신, PLURA Server는 보고·분석 전용 |
 | 보안 유지     | 인증서 기반 통신 + 서명 + 비추출 키 + API 인증 필수 적용             |
+
+* PLURA Agent (EDR)은 "상태" 정의
 
 ---
 
