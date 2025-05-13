@@ -73,7 +73,7 @@ Content-Type: application/json
 
 ## ✅ 결론
 
-> PDP와 PLURA EDR이 **독립된 회사/제품의 시스템**이므로, 다음 구조가 가장 합리적입니다:
+> PDP와 PLURA EDR 이 **독립된 회사/제품의 시스템**이므로, 다음 구조가 가장 합리적입니다:
 
 | 요소        | 설명                                                |
 | --------- | ------------------------------------------------- |
@@ -82,7 +82,7 @@ Content-Type: application/json
 | 서버 통신 최적화 | PLURA Agent ↔ PDP만 API 통신, PLURA Server는 보고·분석 전용 |
 | 보안 유지     | 인증서 기반 통신 + 서명 + 비추출 키 + API 인증 필수 적용             |
 
-* PLURA Agent (EDR)은 "상태" 정의
+👉 [PLURA-EDR 상태 정보](edr_pdp-integration_status-reporting.md)
 
 ---
 
