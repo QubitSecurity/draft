@@ -67,11 +67,90 @@ Content-Type: application/json
 }
 ```
 
-### ✅ B. **PDP가 Pull 방식으로 조회도 가능하게 설계할 수 있음 (선택)**
+## ✅ B. PDP가 Pull 방식으로 상태 조회하는 API 예시
+
+---
+
+### 📌 엔드포인트 설계
+
+```
+GET /api/v1/agents/{agent_id}/status
+```
+
+### 🔐 인증 방식
+
+* **MTLS** 또는 **Bearer Token** 인증 필수
+* HMAC 또는 JWT 서명 방식도 선택 가능
+
+---
+
+### 📥 요청 예
 
 ```http
 GET /api/v1/agents/win10-abcd-1234/status
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6...
+Accept: application/json
 ```
+
+---
+
+### 📤 응답 예 (200 OK)
+
+```json
+{
+  "agent_id": "win10-abcd-1234",
+  "hostname": "DESKTOP-USER1",
+  "last_reported_at": "2025-05-13T17:15:00Z",
+  "status": {
+    "malware_detected": false,
+    "real_time_protection": true,
+    "integrity_passed": true,
+    "policy_violations": [],
+    "last_scan_time": "2025-05-13T17:10:00Z"
+  },
+  "signature": "HMAC-SHA256(...)"
+}
+```
+
+---
+
+### 📄 오류 응답 예
+
+#### 404 Not Found (Agent 등록 안됨)
+
+```json
+{
+  "error": "Agent not found",
+  "agent_id": "win10-unknown-9999"
+}
+```
+
+#### 403 Forbidden (인증 실패)
+
+```json
+{
+  "error": "Unauthorized request"
+}
+```
+
+---
+
+## ✅ 추가 고려사항
+
+| 항목                        | 설명                                    |
+| ------------------------- | ------------------------------------- |
+| 응답에 `last_reported_at` 포함 | PDP가 데이터 신선도(예: 10분 이상 경과 여부) 판단 가능   |
+| 위변조 방지                    | 응답 본문은 HMAC 또는 JWT 서명 포함하여 확인 가능      |
+| 캐싱 전략                     | PDP는 일정 기간 내 조회 결과 캐시 가능 (ex. 5분간 유효) |
+
+---
+
+## 🧩 예시 사용 시나리오
+
+1. 사용자가 내부 시스템에 접근 요청
+2. PEP가 PDP에 Agent ID 전달
+3. PDP는 PLURA Agent 상태 조회 API 호출
+4. 상태 정보 기반으로 접근 허용/차단 결정
 
 ---
 
