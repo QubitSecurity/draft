@@ -1,4 +1,7 @@
-**WMI 또는 PowerShell을 통한 상태 공유 방식**
+# PLURA-EDR Agent Status via Windows WMI
+
+PLURA-EDR (Agent)는 보안 상태 정보를 Windows WMI에 등록하여 PDP가 동일한 PC 내에서 안전하게 조회할 수 있도록 합니다.  
+이를 위해 커스텀 네임스페이스(root\PLURAEDR)와 클래스(AgentStatus)를 생성하고, 악성코드 탐지 여부, 무결성 검증 결과 등의 상태를 실시간으로 업데이트합니다.
 
 ---
 
